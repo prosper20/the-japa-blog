@@ -16,7 +16,7 @@ const projectsData: Project[] = [
     title: 'Engaging communities',
     description: `Imagine a global tapestry woven from vibrant online communities, where individuals united by their connection to a specific country can share experiences, empower one another, and forge lifelong bonds.`,
     imgSrc: '/static/images/community-join.png',
-    href: '/blog/country-based-communities',
+    href: '/blog/japahub/engaging-communities',
   },
 ]
 
