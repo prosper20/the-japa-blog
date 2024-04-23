@@ -10,7 +10,7 @@ const projectsData: Project[] = [
     title: 'Create content',
     description: `Imagine sharing the stories of your life abroad! Japahub is a platform that empowers you to do just that. Share regular posts, journals, and opportunities with a supportive community of like-minded individuals.`,
     imgSrc: '/static/images/japa-logo.png',
-    href: '/blog/nested-route/japahub-platform',
+    href: '/blog/japahub/japahub-platform',
   },
   {
     title: 'Engaging communities',
