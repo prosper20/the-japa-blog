@@ -11,8 +11,7 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
-const discussUrl = (path) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
+const discussUrl = (path) => `https://mobile.twitter.com/search?q=${path}`
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
@@ -30,8 +29,21 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
+  function extractUsername(twitterUrl) {
+    const match = twitterUrl.match(/twitter\.com\/(\w+)$/)
+    return match ? match[1] : null
+  }
+
+  function formatSearchQueryFromPath(path: string) {
+    const lastSegment = path.substring(path.lastIndexOf('/') + 1)
+    return lastSegment.replace(/-/g, '%20')
+  }
   const { filePath, path, slug, date, title, tags } = content
   const basePath = path.split('/')[0]
+
+  const username = extractUsername(authorDetails[0].twitter)
+  const blogPostName = formatSearchQueryFromPath(path)
+  const searchQuery = `from:${username}%20${blogPostName}`
 
   return (
     <SectionContainer>
@@ -96,7 +108,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
               <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
-                <Link href={discussUrl(path)} rel="nofollow">
+                <Link href={discussUrl(searchQuery)} rel="nofollow">
                   Discuss on Twitter
                 </Link>
                 {` • `}
